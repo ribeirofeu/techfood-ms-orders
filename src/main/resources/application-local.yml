@@ -1,0 +1,11 @@
+mysql:
+  username: techfood
+  password: techfood
+  database: techfood
+  url: localhost:3306
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update

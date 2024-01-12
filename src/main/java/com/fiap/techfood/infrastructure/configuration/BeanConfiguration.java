@@ -25,9 +25,8 @@ public class BeanConfiguration {
     @Bean
     OrderUseCases orderUseCases(OrderBdRepository orderBdRepository,
                                 ProductBdRepository productRepository,
-                                CustomerBdRepository customerBdRepository,
-                                PaymentUseCases paymentService) {
-        return new OrderUseCasesImpl(orderBdRepository, productRepository, customerBdRepository, paymentService);
+                                CustomerBdRepository customerBdRepository) {
+        return new OrderUseCasesImpl(orderBdRepository, productRepository, customerBdRepository);
     }
 
     @Bean
@@ -35,8 +34,4 @@ public class BeanConfiguration {
         return new CustomerUseCasesImpl(repository);
     }
 
-    @Bean
-    PaymentUseCases paymentUseCases() {
-        return new PaymentUseCasesImpl();
-    }
 }

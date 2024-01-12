@@ -16,7 +16,6 @@ import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
 import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.application.interfaces.gateways.ProductRepository;
 import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
-import com.fiap.techfood.application.interfaces.usecases.PaymentUseCases;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.math.BigDecimal;
@@ -32,14 +31,11 @@ public class OrderUseCasesImpl implements OrderUseCases {
 
     private final CustomerRepository customerRepository;
 
-    private final PaymentUseCases paymentService;
-
     public OrderUseCasesImpl(final OrderRepository orderRepository, final ProductRepository productRepository,
-                             final CustomerRepository customerRepository, final PaymentUseCases paymentService) {
+                             final CustomerRepository customerRepository) {
         this.repo = orderRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
-        this.paymentService = paymentService;
     }
 
     @Override

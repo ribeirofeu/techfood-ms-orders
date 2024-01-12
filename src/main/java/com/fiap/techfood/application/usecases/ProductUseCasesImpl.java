@@ -13,12 +13,12 @@ import java.util.List;
 
 public class ProductUseCasesImpl implements ProductUseCases {
 
-  private final ProductRepository repo;
+  private final ProductRepository productRepository;
 
   private final CategoryRepository categoryRepository;
 
-  public ProductUseCasesImpl(final ProductRepository repo, CategoryRepository categoryRepository) {
-    this.repo = repo;
+  public ProductUseCasesImpl(final ProductRepository productRepository, CategoryRepository categoryRepository) {
+    this.productRepository = productRepository;
     this.categoryRepository = categoryRepository;
   }
 
@@ -33,24 +33,24 @@ public class ProductUseCasesImpl implements ProductUseCases {
                 () -> new BusinessException("Invalid Category ID", HttpStatusCodes.BAD_REQUEST));
     product.setCategory(category);
 
-    repo.save(product);
+    productRepository.save(product);
     return product.getId();
   }
 
   @Override
   public Product findProductById(Long id) {
-    return repo.findById(id)
+    return productRepository.findById(id)
         .orElseThrow(() -> new BusinessException("Product ID not found", HttpStatusCodes.NOT_FOUND));
   }
 
   @Override
   public List<Product> findAllProducts() {
-    return repo.findAll();
+    return productRepository.findAll();
   }
 
     @Override
     public void deleteProduct(Long id) {
-        repo.deleteProduct(id);
+        productRepository.deleteProduct(id);
     }
 
   @Override
@@ -64,6 +64,6 @@ public class ProductUseCasesImpl implements ProductUseCases {
             .orElseThrow(
                 () -> new BusinessException("Invalid Category ID", HttpStatusCodes.BAD_REQUEST));
     product.setCategory(category);
-    repo.updateProduct(product);
+      productRepository.updateProduct(product);
   }
 }

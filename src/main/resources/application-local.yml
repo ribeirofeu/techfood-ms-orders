@@ -1,8 +1,8 @@
-mysql:
+database:
   username: techfood
   password: techfood
-  database: techfood
-  url: localhost:3306
+  url: jdbc:mysql://localhost:3306/techfood
+  driver-class-name: com.mysql.cj.jdbc.Driver
 
 spring:
   jpa:

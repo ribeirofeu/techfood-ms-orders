@@ -1,8 +1,8 @@
-mysql:
+database:
   username: ${MYSQL_USERNAME}
   password: ${MYSQL_PASSWORD}
-  database: ${MYSQL_DATABASE}
   url: ${MYSQL_HOST}
+  driver-class-name: com.mysql.cj.jdbc.Driver
 
 spring:
   jpa:

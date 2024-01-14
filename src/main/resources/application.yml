@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:mysql://${mysql.url}/${mysql.database}
-    username: ${mysql.username}
-    password: ${mysql.password}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${database.url}
+    username: ${database.username}
+    password: ${database.password}
+    driver-class-name: ${database.driver-class-name}
   profiles:
-    active: ${APP_PROFILE:local}
+    active: ${APP_PROFILE:test}
 
 server:
   error:

@@ -1,47 +1,83 @@
 package com.fiap.techfood.infrastructure.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fiap.techfood.application.dto.request.ProductRequestDTO;
 import com.fiap.techfood.application.interfaces.usecases.ProductUseCases;
+import com.fiap.techfood.domain.commons.HttpStatusCodes;
+import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.utils.ModelUtils;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+@WebMvcTest(ProductController.class)
 class ProductControllerTest {
 
-    private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-    @Mock
-    private ProductUseCases productUseCases;
+  @MockBean private ProductUseCases productUseCases;
 
-    AutoCloseable mock;
-
-    @BeforeEach
-    void setup(){
-        mock = MockitoAnnotations.openMocks(this);
-        ProductController productController = new ProductController(productUseCases);
-        mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
-    }
-
-    @AfterEach
-    void tearDown() throws Exception{
-        mock.close();
-    }
+  AutoCloseable mock;
 
   @Test
   void shouldCreateProductSuccess() throws Exception {
 
-    ProductRequestDTO requestDTO = ModelUtils.createProductRequestDTOInstance();
+    ProductRequestDTO requestDTO = ModelUtils.createProductRequestDTOInstance(2L);
     mockMvc
-        .perform(post("/products").content(ModelUtils.asJsonString(requestDTO)).contentType("application/json"))
+        .perform(
+            post("/products")
+                .content(ModelUtils.asJsonString(requestDTO))
+                .contentType("application/json"))
         .andExpect(status().isCreated());
+  }
+
+  @Test
+  void shouldGetProductByIdSuccess() throws Exception {
+    mockMvc.perform(get("/products/1")).andExpect(status().isOk());
+  }
+
+  @Test
+  void shouldGetAllProductSuccess() throws Exception {
+    mockMvc.perform(get("/products")).andExpect(status().isOk());
+  }
+
+  @Test
+  void shouldDeleteProductSuccess() throws Exception {
+    mockMvc.perform(delete("/products/1")).andExpect(status().isNoContent());
+  }
+
+  @Test
+  void shouldUpdateProductSuccess() throws Exception {
+
+    ProductRequestDTO requestDTO = ModelUtils.createProductRequestDTOInstance(2L);
+    mockMvc
+        .perform(
+            put("/products/1")
+                .content(ModelUtils.asJsonString(requestDTO))
+                .contentType("application/json"))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void shouldThrowBusinessExceptionCreateProduct() throws Exception {
+
+    ProductRequestDTO requestDTO = ModelUtils.createProductRequestDTOInstance(2L);
+
+    when(productUseCases.createProduct(any()))
+        .thenThrow(new BusinessException("Invalid Request", HttpStatusCodes.BAD_REQUEST));
+
+    mockMvc
+        .perform(
+            post("/products")
+                .content(ModelUtils.asJsonString(requestDTO))
+                .contentType("application/json"))
+        .andExpect(status().isBadRequest());
   }
 }

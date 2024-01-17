@@ -47,7 +47,7 @@ class ProductUseCasesImplTest {
 
     @Test
     void shouldCreateProductSuccess(){
-        ProductRequestDTO requestDTO = ModelUtils.createProductRequestDTOInstance();
+        ProductRequestDTO requestDTO = ModelUtils.createProductRequestDTOInstance(2L);
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(ModelUtils.createCategoryInstance(1L)));
 
         assertDoesNotThrow(() -> productUseCases.createProduct(requestDTO));

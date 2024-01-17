@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class OrderControllerTest {
@@ -49,4 +49,40 @@ class OrderControllerTest {
                 .contentType("application/json"))
         .andExpect(status().isCreated());
   }
+
+    @Test
+    void shouldCallUpdateOrderSuccess() throws Exception {
+        OrderRequestDTO requestDTO = ModelUtils.createOrderRequestDTOInstance();
+        mockMvc
+                .perform(
+                        patch("/orders/1")
+                                .content(ModelUtils.asJsonString(requestDTO))
+                                .contentType("application/json"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldCallAllOrderNotCompletedSuccess() throws Exception {
+        mockMvc
+                .perform(
+                        get("/orders/"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldCallOrderByStatusSuccess() throws Exception {
+        mockMvc
+                .perform(
+                        get("/orders/status?status=CREATED&startDatetime=2024-01-16T10:00:01+03:00&endDatetime=2024-01-16T10:00:01+03:00"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldCallOrderByStatusAndTimeSuccess() throws Exception {
+        mockMvc
+                .perform(
+                        get("/orders/1/payment/status"))
+                .andExpect(status().isOk());
+    }
+
 }

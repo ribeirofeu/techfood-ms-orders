@@ -49,20 +49,12 @@ public class ProductBdRepository implements ProductRepository {
 
   @Override
   public void deleteProduct(Long id) {
-    try {
       repo.deleteById(id);
-    } catch (EmptyResultDataAccessException e) {
-      throw new BusinessException("Product not found", HttpStatusCodes.NOT_FOUND);
-    }
   }
 
   @Override
   public void updateProduct(Product product) {
-    try {
       ProductEntity entity = new ProductEntity(product);
       repo.save(entity);
-    } catch (DataIntegrityViolationException e) {
-      throw new BusinessException("Error updating Product", HttpStatusCodes.BAD_REQUEST);
-    }
   }
 }

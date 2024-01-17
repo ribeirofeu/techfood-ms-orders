@@ -53,16 +53,4 @@ public class OrderItemEntity {
                 .build();
     }
 
-    public static OrderItemEntity from(OrderItem orderItem) {
-        return OrderItemEntity.builder()
-                .id(OrderItemId.builder()
-                        .orderId(orderItem.getOrder().getNumber())
-                        .productId(orderItem.getProduct().getId())
-                        .build())
-                .product(ProductEntity.from(orderItem.getProduct()))
-                .order(OrderEntity.from(orderItem.getOrder()))
-                .unitPrice(orderItem.getUnitPrice())
-                .quantity(orderItem.getQuantity())
-                .build();
-    }
 }

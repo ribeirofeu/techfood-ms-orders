@@ -17,13 +17,6 @@ public class OrderItem {
     private Integer quantity;
     private BigDecimal unitPrice;
 
-    public static OrderItem fromOrderItemRequestDTO(OrderRequestDTO.OrderItemRequestDTO requestDTO) {
-        return OrderItem.builder()
-                .product(Product.builder().id(requestDTO.getProductId()).build())
-                .quantity(requestDTO.getQuantity())
-                .build();
-    }
-
     public BigDecimal calculateItemTotalValue() {
         return this.unitPrice.multiply(BigDecimal.valueOf(this.getQuantity()));
     }

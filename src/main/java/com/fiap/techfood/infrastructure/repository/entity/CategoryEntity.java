@@ -3,6 +3,8 @@ package com.fiap.techfood.infrastructure.repository.entity;
 import com.fiap.techfood.domain.products.Category;
 import com.fiap.techfood.domain.products.Product;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +15,8 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "category")
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class CategoryEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

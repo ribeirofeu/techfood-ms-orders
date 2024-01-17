@@ -2,6 +2,8 @@ package com.fiap.techfood.infrastructure.repository.entity;
 
 import com.fiap.techfood.domain.products.Product;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "product")
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class ProductEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

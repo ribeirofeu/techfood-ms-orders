@@ -17,6 +17,8 @@ public class OrderRequestDTO {
 
     @Getter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class OrderItemRequestDTO {
         private Long productId;
         private Integer quantity;

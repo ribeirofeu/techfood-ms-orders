@@ -56,21 +56,7 @@ public class CategoryBdRepository implements CategoryRepository {
 
   @Override
   public void deleteCategory(Long id) {
-    try {
       repo.deleteById(id);
-    } catch (EmptyResultDataAccessException e) {
-      throw new BusinessException("Category not found", HttpStatusCodes.NOT_FOUND);
-    }
-  }
-
-  @Override
-  public void updateCategory(Category category) {
-    try {
-      CategoryEntity entity = new CategoryEntity(category);
-      repo.save(entity);
-    } catch (DataIntegrityViolationException e) {
-      throw new BusinessException("Category ID invalid", HttpStatusCodes.NOT_FOUND);
-    }
   }
 }
 

@@ -5,13 +5,13 @@ on:
       - main
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
-        java-version: '11'
+        java-version: '17'
     - name: Analyze with SonarCloud
       run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=techfood-ms-orders -Dsonar.organization=ribeirofeu -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:

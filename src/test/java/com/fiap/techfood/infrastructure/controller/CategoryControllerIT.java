@@ -12,8 +12,7 @@ import org.springframework.http.MediaType;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.assertj.core.api.Fail.fail;
-import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -42,31 +41,56 @@ class CategoryControllerIT {
 
     @Test
     void shouldCallFindCategoryByIdSuccess() {
+        Long id = 20L;
+
         when()
-            .get("/categories/20")
+            .get("/categories/{id}", id)
         .then()
             .statusCode(HttpStatus.OK.value())
             .body(notNullValue())
-            .body(matchesJsonSchemaInClasspath("schemas/category-schema-get.json"));
+            .body(matchesJsonSchemaInClasspath("schemas/category-schema.json"));
     }
 
     @Test
     void shouldCallFindAllCategorySuccess() {
-        fail("not implement yet");
+        when()
+            .get("/categories")
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .body(matchesJsonSchemaInClasspath("schemas/list-category-schema.json"));
     }
 
     @Test
     void shouldCallFindProductByCategorySuccess() {
-        fail("not implement yet");
+        Long id = 30L;
+        when()
+            .get("/categories/{id}/products", id)
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .body(matchesJsonSchemaInClasspath("schemas/list-products-category-schema.json"));
     }
 
     @Test
     void shouldCallDeleteCategorySuccess() {
-        fail("not implement yet");
+        Long id = 41L;
+        when()
+            .delete("/categories/{id}", id)
+        .then()
+            .statusCode(HttpStatus.NO_CONTENT.value());
     }
 
     @Test
     void shouldCallUpdateCategorySuccess() {
-        fail("not implement yet");
+        CategoryRequestDTO requestDTO = new CategoryRequestDTO("category test update");
+        Long id = 20L;
+
+        given()
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(requestDTO)
+        .when()
+            .put("/categories/{id}", id)
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .body(equalTo("Category Updated Successful"));;
     }
 }

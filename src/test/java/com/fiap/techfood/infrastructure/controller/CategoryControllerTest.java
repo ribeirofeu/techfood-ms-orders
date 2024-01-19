@@ -45,7 +45,7 @@ class CategoryControllerTest {
 
     @Test
     void shouldCallCreateCategorySuccess() throws Exception {
-        CategoryRequestDTO requestDTO = new CategoryRequestDTO("Bebidas");
+        CategoryRequestDTO requestDTO = new CategoryRequestDTO("Drinks");
 
         mockMvc.perform(post("/categories").content(ModelUtils.asJsonString(requestDTO)).contentType("application/json"))
                 .andExpect(status().isCreated());

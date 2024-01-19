@@ -58,7 +58,7 @@ class CategoryUseCasesIT {
     void shouldFindAllCategorySuccess(){
         List<Category> categories = categoryUseCases.findAllCategories();
         assertNotNull(categories);
-        assertTrue(categories.size() > 0);
+        assertFalse(categories.isEmpty());
     }
 
     @Test

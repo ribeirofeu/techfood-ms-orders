@@ -2,12 +2,16 @@ package com.fiap.techfood.infrastructure.repository.entity;
 
 import com.fiap.techfood.domain.customer.Customer;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "customer")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

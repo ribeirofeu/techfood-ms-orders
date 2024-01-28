@@ -4,6 +4,8 @@ import com.fiap.techfood.application.dto.request.OrderRequestDTO;
 import com.fiap.techfood.application.dto.request.ProcessOrderPaymentRequestDTO;
 import com.fiap.techfood.application.dto.request.SearchOrdersRequestDTO;
 import com.fiap.techfood.application.dto.response.OrderPaymentStatusDTO;
+import com.fiap.techfood.application.dto.response.PaymentDTO;
+import com.fiap.techfood.application.interfaces.usecases.NotificationUseCases;
 import com.fiap.techfood.domain.commons.HttpStatusCodes;
 import com.fiap.techfood.domain.customer.Customer;
 import com.fiap.techfood.domain.order.Order;
@@ -29,13 +31,15 @@ public class OrderUseCasesImpl implements OrderUseCases {
     private final OrderRepository repo;
     private final ProductRepository productRepository;
 
+    private NotificationUseCases notificationUseCases;
     private final CustomerRepository customerRepository;
 
     public OrderUseCasesImpl(final OrderRepository orderRepository, final ProductRepository productRepository,
-                             final CustomerRepository customerRepository) {
+                             final CustomerRepository customerRepository, final NotificationUseCases notificationUseCases) {
         this.repo = orderRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
+        this.notificationUseCases = notificationUseCases;
     }
 
     @Override
@@ -55,8 +59,13 @@ public class OrderUseCasesImpl implements OrderUseCases {
         List<OrderItem> orderItems = buildOrderItems(requestDTO.getItems(), products);
         order.setItems(orderItems);
         order.setTotalValue(calculateOrderTotalValue(orderItems));
-        // TODO Add Service Payment
-//        order.setQrCode(this.paymentService.getPaymentQRCode(order));
+
+        try {
+            order.setQrCode(notificationUseCases.send(new PaymentDTO(order.getNumber(), order.getTotalValue())));
+        } catch (Exception e) {
+            throw new BusinessException("Falha ao se comunicar com o serviço", HttpStatusCodes.INTERNAL_SERVER_ERROR);
+        }
+
 
         return repo.save(order);
     }

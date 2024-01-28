@@ -15,7 +15,7 @@
 	<description>Projeto Tech Challenge - FIAP - MS Orders </description>
 	<properties>
 		<java.version>17</java.version>
-        <sonar.exclusions>**/domain/**, **/dto/**, **/request/**, **/response/**, **/configuration/**, **/entity/**, **/exception/**</sonar.exclusions>
+        <sonar.exclusions>**/domain/**, **/dto/**, **/configuration/**, **/entity/**, **/exception/**</sonar.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>

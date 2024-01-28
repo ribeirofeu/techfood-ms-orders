@@ -9,3 +9,12 @@ down:
 
 status:
 	docker ps
+
+start:
+	mvn spring-boot:run
+
+test:
+	mvn test
+
+integration-test:
+	mvn test -P integration-tests

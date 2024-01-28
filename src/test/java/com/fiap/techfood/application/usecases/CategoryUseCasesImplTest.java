@@ -21,15 +21,17 @@ class CategoryUseCasesImplTest {
 
   @Mock private CategoryRepository categoryRepository;
 
+  AutoCloseable openMocks;
+
   @BeforeEach
   void setup() {
-    MockitoAnnotations.openMocks(this);
+    openMocks = MockitoAnnotations.openMocks(this);
     categoryUseCases = new CategoryUseCasesImpl(categoryRepository);
   }
 
   @Test
   void shouldCreateCategorySuccess() {
-    CategoryRequestDTO requestDTO = new CategoryRequestDTO("Bebidas");
+    CategoryRequestDTO requestDTO = new CategoryRequestDTO("Drinks");
     assertDoesNotThrow(() -> categoryUseCases.createCategory(requestDTO));
     verify(categoryRepository).save(any());
   }

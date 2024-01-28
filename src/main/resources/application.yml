@@ -24,3 +24,6 @@ management:
         enabled: true
       db:
         enabled:true
+
+production:
+  url: ${production.url}

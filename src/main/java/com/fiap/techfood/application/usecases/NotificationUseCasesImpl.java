@@ -1,15 +1,14 @@
 package com.fiap.techfood.application.usecases;
 
-import com.fiap.techfood.application.dto.request.PaymentRequestDTO;
 import com.fiap.techfood.application.dto.response.PaymentDTO;
 import com.fiap.techfood.application.interfaces.usecases.NotificationUseCases;
-import com.fiap.techfood.domain.payment.Payment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Objects;
 
 public class NotificationUseCasesImpl implements NotificationUseCases {
     private final RestTemplate restTemplate;
@@ -23,9 +22,9 @@ public class NotificationUseCasesImpl implements NotificationUseCases {
 
     @Override
     public String send(PaymentDTO payment) throws NullPointerException {
-        return request(payment)
-                .getBody()
-                .getQrCode();
+        return Objects.requireNonNull(
+                    request(payment).getBody()
+                ).getQrCode();
     }
 
     private ResponseEntity<PaymentDTO> request(PaymentDTO dto) {

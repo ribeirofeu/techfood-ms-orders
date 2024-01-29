@@ -7,6 +7,7 @@ import com.fiap.techfood.application.interfaces.gateways.CategoryRepository;
 import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
 import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.application.interfaces.gateways.ProductRepository;
+import com.fiap.techfood.application.interfaces.usecases.NotificationUseCases;
 import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.domain.customer.Customer;
@@ -42,10 +43,12 @@ class OrderUseCasesImplTest {
 
   @Mock private ProductRepository productRepository;
 
+  @Mock private NotificationUseCases notificationUseCases;
+
   @BeforeEach
   void setup() {
     openMocks = MockitoAnnotations.openMocks(this);
-    orderUseCases = new OrderUseCasesImpl(orderRepository, productRepository, customerRepository);
+    orderUseCases = new OrderUseCasesImpl(orderRepository, productRepository, customerRepository, notificationUseCases);
   }
 
   @AfterEach

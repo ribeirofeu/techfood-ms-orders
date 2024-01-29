@@ -1,28 +1,23 @@
 package com.fiap.techfood.application.usecases;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.fiap.techfood.application.dto.request.OrderRequestDTO;
-import com.fiap.techfood.application.dto.request.ProductRequestDTO;
-import com.fiap.techfood.application.interfaces.gateways.CategoryRepository;
 import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
 import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.application.interfaces.gateways.ProductRepository;
+import com.fiap.techfood.application.interfaces.usecases.NotificationUseCases;
 import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
-import com.fiap.techfood.application.interfaces.usecases.ProductUseCases;
-import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.domain.order.Order;
-import com.fiap.techfood.domain.products.Product;
 import com.fiap.techfood.utils.ModelUtils;
-import java.math.BigDecimal;
-import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles(value = "test")
@@ -36,12 +31,14 @@ class OrderUseCasesIT {
 
   @Autowired private CustomerRepository customerRepository;
 
+  @Mock private NotificationUseCases notificationUseCases;
+
   AutoCloseable openMocks;
 
   @BeforeEach
   void setup() {
     openMocks = MockitoAnnotations.openMocks(this);
-    orderUseCases = new OrderUseCasesImpl(orderRepository, productRepository, customerRepository);
+    orderUseCases = new OrderUseCasesImpl(orderRepository, productRepository, customerRepository, notificationUseCases);
   }
 
   @AfterEach
@@ -54,7 +51,5 @@ class OrderUseCasesIT {
       OrderRequestDTO requestDTO = ModelUtils.createOrderRequestDTOInstance();
       Order order = orderUseCases.createOrder(requestDTO);
       assertNotNull(order);
-
   }
-
 }

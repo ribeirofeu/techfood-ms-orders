@@ -99,7 +99,7 @@ public class OrderEntity {
                 .number(this.id)
                 .notes(this.getNotes())
                 .qrCode(this.getQrCode())
-                .items(this.items.stream().map(OrderItemEntity::toOrderItem).collect(Collectors.toList()))
+                .items(this.items.stream().map(OrderItemEntity::toOrderItem).toList())
                 .build();
     }
 

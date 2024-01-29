@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "category")
@@ -37,6 +35,6 @@ public class CategoryEntity {
   }
 
   public List<Product> getProducts() {
-    return products.stream().map(ProductEntity::toProduct).collect(Collectors.toList());
+    return products.stream().map(ProductEntity::toProduct).toList();
   }
 }

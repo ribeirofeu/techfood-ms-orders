@@ -17,11 +17,14 @@ import java.util.stream.Collectors;
 @Component
 public class OrderBdRepository implements OrderRepository {
 
-    @Autowired
-    SpringOrderRepository repo;
+    private final SpringOrderRepository repo;
 
-    @Autowired
-    SpringProductRepository productRepository;
+    private final SpringProductRepository productRepository;
+
+    public OrderBdRepository(SpringOrderRepository repo, SpringProductRepository productRepository) {
+        this.repo = repo;
+        this.productRepository = productRepository;
+    }
 
     @Override
     public Optional<Order> findById(Long id) {
@@ -50,12 +53,12 @@ public class OrderBdRepository implements OrderRepository {
     @Override
     public List<Order> findAllNotCompleted() {
         return repo.findAllByStatusNotIn(List.of(OrderStatus.CREATED, OrderStatus.COMPLETED, OrderStatus.REJECTED))
-                .stream().map(OrderEntity::toOrder).collect(Collectors.toList());
+                .stream().map(OrderEntity::toOrder).toList();
     }
 
     @Override
     public List<Order> findOrdersByStatusAndTimeInterval(OrderStatus status, OffsetDateTime startDateTime, OffsetDateTime endDateTime) {
         return repo.findAllByStatusIsAndCreatedDateTimeBetween(status, startDateTime, endDateTime)
-                .stream().map(OrderEntity::toOrder).collect(Collectors.toList());
+                .stream().map(OrderEntity::toOrder).toList();
     }
 }

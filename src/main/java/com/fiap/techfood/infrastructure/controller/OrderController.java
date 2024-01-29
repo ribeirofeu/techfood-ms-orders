@@ -21,8 +21,11 @@ import java.util.List;
 @Tag(name = "Pedidos")
 public class OrderController {
 
-    @Autowired
-    private OrderUseCases useCases;
+    private final OrderUseCases useCases;
+
+    public OrderController(OrderUseCases useCases) {
+        this.useCases = useCases;
+    }
 
     @PostMapping
     @Operation(summary = "Cria um pedido")

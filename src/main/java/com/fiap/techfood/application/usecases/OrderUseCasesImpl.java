@@ -99,12 +99,12 @@ public class OrderUseCasesImpl implements OrderUseCases {
 
     private static List<Long> getProductIds(List<OrderRequestDTO.OrderItemRequestDTO> items) {
         return items.stream().map(OrderRequestDTO.OrderItemRequestDTO::getProductId)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public Order updateOrderStatus(Long orderNumber, OrderStatus status) {
-        Order order = repo.findById(orderNumber).orElseThrow(() -> new BusinessException("Ordem não encontrada!", HttpStatusCodes.NOT_FOUND));
+        Order order = repo.findById(orderNumber).orElseThrow(() -> new BusinessException("Pedido não encontrado!", HttpStatusCodes.NOT_FOUND));
         order.setStatus(status);
         repo.updateOrderStatus(order);
         return order;
@@ -128,12 +128,12 @@ public class OrderUseCasesImpl implements OrderUseCases {
                 .filter(order -> order.getReceivedDateTime() != null)
                 .sorted(Comparator.comparing((Order order) -> order.getStatus().getDisplayPriority())
                         .thenComparing(Order::getReceivedDateTime))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public OrderPaymentStatusDTO getOrderPaymentStatus(Long orderNumber) {
-        Order order = repo.findById(orderNumber).orElseThrow(() -> new BusinessException("Ordem não encontrada!", HttpStatusCodes.NOT_FOUND));
+        Order order = repo.findById(orderNumber).orElseThrow(() -> new BusinessException("Status não pode ser alterado!", HttpStatusCodes.NOT_FOUND));
 
         if(order.getStatus() == OrderStatus.REJECTED) {
             return OrderPaymentStatusDTO.builder().status(OrderPaymentStatus.REJECTED).build();
@@ -147,7 +147,7 @@ public class OrderUseCasesImpl implements OrderUseCases {
     @Override
     public void processOrderPayment(ProcessOrderPaymentRequestDTO processOrderPaymentRequest) {
         Order order = repo.findById(processOrderPaymentRequest.getOrderId())
-                .orElseThrow(() -> new BusinessException("Ordem não encontrada!", HttpStatusCodes.NOT_FOUND));
+                .orElseThrow(() -> new BusinessException("Pagamento não processado!", HttpStatusCodes.NOT_FOUND));
 
         order.setStatus(processOrderPaymentRequest.getPaymentStatus().equals(OrderPaymentStatus.APPROVED) ?
                 OrderStatus.RECEIVED : OrderStatus.REJECTED);

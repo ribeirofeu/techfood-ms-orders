@@ -6,6 +6,7 @@ import com.fiap.techfood.infrastructure.repository.CategoryBdRepository;
 import com.fiap.techfood.infrastructure.repository.CustomerBdRepository;
 import com.fiap.techfood.infrastructure.repository.OrderBdRepository;
 import com.fiap.techfood.infrastructure.repository.ProductBdRepository;
+import com.fiap.techfood.infrastructure.services.NotificationUseCasesImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;

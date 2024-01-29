@@ -1,4 +1,4 @@
-package com.fiap.techfood.application.usecases;
+package com.fiap.techfood.infrastructure.services;
 
 import com.fiap.techfood.application.dto.request.PaymentRequestDTO;
 import com.fiap.techfood.application.dto.response.PaymentDTO;
@@ -29,11 +29,7 @@ public class NotificationUseCasesImpl implements NotificationUseCases {
     }
 
     private ResponseEntity<PaymentDTO> request(PaymentDTO dto) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Cache-Control", "no-cache");
-        headers.set("Pragma", "no-cache");
-
-        HttpEntity<PaymentDTO> requestEntity = new HttpEntity<>(dto, headers);
+        HttpEntity<PaymentDTO> requestEntity = new HttpEntity<>(dto);
 
         return restTemplate.postForEntity(
                 productionUrl,

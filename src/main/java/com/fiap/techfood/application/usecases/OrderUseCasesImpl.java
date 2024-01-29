@@ -60,14 +60,15 @@ public class OrderUseCasesImpl implements OrderUseCases {
         order.setItems(orderItems);
         order.setTotalValue(calculateOrderTotalValue(orderItems));
 
+        var orderSaved = repo.save(order);
+
         try {
-            order.setQrCode(notificationUseCases.send(new PaymentDTO(order.getNumber(), order.getTotalValue())));
+            orderSaved.setQrCode(notificationUseCases.send(new PaymentDTO(orderSaved.getNumber(), order.getTotalValue())));
         } catch (Exception e) {
             throw new BusinessException("Falha ao se comunicar com o serviço", HttpStatusCodes.INTERNAL_SERVER_ERROR);
         }
 
-
-        return repo.save(order);
+        return orderSaved;
     }
 
     private BigDecimal calculateOrderTotalValue(List<OrderItem> orderItems) {

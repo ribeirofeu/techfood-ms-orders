@@ -11,4 +11,4 @@ spring:
       ddl-auto: update
 
 production:
-  url: "http://localhost:8080/payment"
+  url: "http://localhost:8080/payment/generate"

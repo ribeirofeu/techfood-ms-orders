@@ -5,19 +5,19 @@ import com.fiap.techfood.application.dto.request.ProcessOrderPaymentRequestDTO;
 import com.fiap.techfood.application.dto.request.SearchOrdersRequestDTO;
 import com.fiap.techfood.application.dto.response.OrderPaymentStatusDTO;
 import com.fiap.techfood.application.dto.response.PaymentDTO;
+import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
+import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
+import com.fiap.techfood.application.interfaces.gateways.ProductRepository;
 import com.fiap.techfood.application.interfaces.usecases.NotificationUseCases;
+import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import com.fiap.techfood.domain.commons.HttpStatusCodes;
+import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.domain.customer.Customer;
 import com.fiap.techfood.domain.order.Order;
 import com.fiap.techfood.domain.order.OrderItem;
 import com.fiap.techfood.domain.order.OrderPaymentStatus;
 import com.fiap.techfood.domain.order.OrderStatus;
 import com.fiap.techfood.domain.products.Product;
-import com.fiap.techfood.domain.commons.exception.BusinessException;
-import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
-import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
-import com.fiap.techfood.application.interfaces.gateways.ProductRepository;
-import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.math.BigDecimal;
@@ -25,7 +25,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OrderUseCasesImpl implements OrderUseCases {
     private final OrderRepository repo;

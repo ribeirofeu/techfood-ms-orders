@@ -1,18 +1,16 @@
 package com.fiap.techfood.infrastructure.repository;
 
+import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.domain.order.Order;
 import com.fiap.techfood.domain.order.OrderStatus;
-import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.infrastructure.repository.entity.OrderEntity;
 import com.fiap.techfood.infrastructure.repository.entity.ProductEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class OrderBdRepository implements OrderRepository {

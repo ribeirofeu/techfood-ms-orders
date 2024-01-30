@@ -1,19 +1,14 @@
 package com.fiap.techfood.infrastructure.repository;
 
 import com.fiap.techfood.application.interfaces.gateways.CategoryRepository;
-import com.fiap.techfood.domain.commons.HttpStatusCodes;
-import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.domain.products.Category;
 import com.fiap.techfood.domain.products.Product;
 import com.fiap.techfood.infrastructure.repository.entity.CategoryEntity;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class CategoryBdRepository implements CategoryRepository {

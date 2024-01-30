@@ -37,6 +37,6 @@ public class CategoryEntity {
   }
 
   public List<Product> getProducts() {
-    return products.stream().map(ProductEntity::toProduct).collect(Collectors.toList());
+    return products.stream().map(ProductEntity::toProduct).toList();
   }
 }

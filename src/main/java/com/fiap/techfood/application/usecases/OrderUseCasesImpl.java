@@ -31,7 +31,7 @@ public class OrderUseCasesImpl implements OrderUseCases {
     private final OrderRepository repo;
     private final ProductRepository productRepository;
 
-    private NotificationUseCases notificationUseCases;
+    private final NotificationUseCases notificationUseCases;
     private final CustomerRepository customerRepository;
 
     public OrderUseCasesImpl(final OrderRepository orderRepository, final ProductRepository productRepository,
@@ -99,7 +99,7 @@ public class OrderUseCasesImpl implements OrderUseCases {
 
     private static List<Long> getProductIds(List<OrderRequestDTO.OrderItemRequestDTO> items) {
         return items.stream().map(OrderRequestDTO.OrderItemRequestDTO::getProductId)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -128,7 +128,7 @@ public class OrderUseCasesImpl implements OrderUseCases {
                 .filter(order -> order.getReceivedDateTime() != null)
                 .sorted(Comparator.comparing((Order order) -> order.getStatus().getDisplayPriority())
                         .thenComparing(Order::getReceivedDateTime))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

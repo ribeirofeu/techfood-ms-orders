@@ -40,7 +40,7 @@ public class CategoryBdRepository implements CategoryRepository {
   @Override
   public List<Category> findAll() {
     List<CategoryEntity> categoryEntities = repo.findAll();
-    return categoryEntities.stream().map(CategoryEntity::toCategory).collect(Collectors.toList());
+    return categoryEntities.stream().map(CategoryEntity::toCategory).toList();
   }
 
   @Override

@@ -39,12 +39,12 @@ public class ProductBdRepository implements ProductRepository {
   @Override
   public List<Product> findAll() {
     List<ProductEntity> productEntities = repo.findAll();
-    return productEntities.stream().map(ProductEntity::toProduct).collect(Collectors.toList());
+    return productEntities.stream().map(ProductEntity::toProduct).toList();
   }
 
   @Override
   public List<Product> findAllByIdIn(List<Long> productIds) {
-    return repo.findAllByIdIn(productIds).stream().map(ProductEntity::toProduct).collect(Collectors.toList());
+    return repo.findAllByIdIn(productIds).stream().map(ProductEntity::toProduct).toList();
   }
 
   @Override

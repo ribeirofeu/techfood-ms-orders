@@ -4,8 +4,9 @@ on:
     branches:
       - main
 jobs:
-  code-analyis:
+  code-analysis:
     runs-on: ubuntu-20.04
+    name: Code Analysis
     steps:
     - uses: actions/checkout@v1
     - uses: actions/cache@v1
@@ -29,6 +30,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     environment: dev
+    needs: code-analysis
     steps:
       - name: Checkout
         uses: actions/checkout@v3

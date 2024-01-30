@@ -17,11 +17,14 @@ import java.util.stream.Collectors;
 @Component
 public class OrderBdRepository implements OrderRepository {
 
-    @Autowired
-    SpringOrderRepository repo;
+    final SpringOrderRepository repo;
 
-    @Autowired
-    SpringProductRepository productRepository;
+    final SpringProductRepository productRepository;
+
+    public OrderBdRepository(SpringOrderRepository repo, SpringProductRepository productRepository) {
+        this.repo = repo;
+        this.productRepository = productRepository;
+    }
 
     @Override
     public Optional<Order> findById(Long id) {

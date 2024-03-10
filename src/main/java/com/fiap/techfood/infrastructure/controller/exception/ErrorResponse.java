@@ -1,14 +1,14 @@
 package com.fiap.techfood.infrastructure.controller.exception;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.time.OffsetDateTime;
 
-@Data
+@Getter
 public class ErrorResponse {
 
-    private OffsetDateTime timestamp;
-    private String messageError;
+    private final OffsetDateTime timestamp;
+    private final String messageError;
 
     public ErrorResponse(String messageError) {
         this.timestamp = OffsetDateTime.now();

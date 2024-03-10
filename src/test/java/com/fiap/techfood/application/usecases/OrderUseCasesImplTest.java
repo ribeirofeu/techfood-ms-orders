@@ -2,8 +2,6 @@ package com.fiap.techfood.application.usecases;
 
 import com.fiap.techfood.application.dto.request.OrderRequestDTO;
 import com.fiap.techfood.application.dto.request.SearchOrdersRequestDTO;
-import com.fiap.techfood.application.dto.response.OrderPaymentStatusDTO;
-import com.fiap.techfood.application.interfaces.gateways.CategoryRepository;
 import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
 import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.application.interfaces.gateways.ProductRepository;
@@ -12,7 +10,6 @@ import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.domain.customer.Customer;
 import com.fiap.techfood.domain.order.Order;
-import com.fiap.techfood.domain.order.OrderPaymentStatus;
 import com.fiap.techfood.domain.order.OrderStatus;
 import com.fiap.techfood.domain.products.Product;
 import com.fiap.techfood.utils.ModelUtils;
@@ -141,46 +138,4 @@ class OrderUseCasesImplTest {
         assertNotNull(result);
 
     }
-
-    @Test
-    void shouldFindOrderPaymentStatusSuccess(){
-
-        Order order = ModelUtils.createOrderInstance(1L, OrderStatus.CREATED);
-        when(orderRepository.findById(any())).thenReturn(Optional.of(order));
-
-        OrderPaymentStatusDTO status = orderUseCases.getOrderPaymentStatus(1L);
-
-        assertNotNull(status);
-        assertEquals(OrderPaymentStatus.PENDING, status.getStatus());
-
-    }
-
-    @Test
-    void shouldFindOrderPaymentStatusRejectedSuccess(){
-
-        Order order = ModelUtils.createOrderInstance(1L, OrderStatus.REJECTED);
-        when(orderRepository.findById(any())).thenReturn(Optional.of(order));
-
-        OrderPaymentStatusDTO status = orderUseCases.getOrderPaymentStatus(1L);
-
-        assertNotNull(status);
-        assertEquals(OrderPaymentStatus.REJECTED, status.getStatus());
-
-    }
-
-    @Test
-    void shouldFindOrderPaymentStatusApprovedSuccess(){
-
-        Order order = ModelUtils.createOrderInstance(1L, OrderStatus.IN_PREPARATION);
-        when(orderRepository.findById(any())).thenReturn(Optional.of(order));
-
-        OrderPaymentStatusDTO status = orderUseCases.getOrderPaymentStatus(1L);
-
-        assertNotNull(status);
-        assertEquals(OrderPaymentStatus.APPROVED, status.getStatus());
-
-    }
-
-
-
 }

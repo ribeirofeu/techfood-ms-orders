@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 public class PaymentDTO {
 
     @JsonProperty("idPedido")
-    private Long id;
+    private final Long id;
 
     @JsonProperty("valorTotal")
-    private BigDecimal totalValue;
+    private final BigDecimal totalValue;
 
     @JsonProperty("qrCode")
     private String qrCode;

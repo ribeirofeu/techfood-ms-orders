@@ -50,7 +50,7 @@ public class OrderBdRepository implements OrderRepository {
 
     @Override
     public List<Order> findAllNotCompleted() {
-        return repo.findAllByStatusNotIn(List.of(OrderStatus.CREATED, OrderStatus.COMPLETED, OrderStatus.REJECTED))
+        return repo.findAllByStatusNotIn(List.of(OrderStatus.COMPLETED, OrderStatus.READY))
                 .stream().map(OrderEntity::toOrder).toList();
     }
 

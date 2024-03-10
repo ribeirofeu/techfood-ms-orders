@@ -1,9 +1,7 @@
 package com.fiap.techfood.application.usecases;
 
 import com.fiap.techfood.application.dto.request.OrderRequestDTO;
-import com.fiap.techfood.application.dto.request.ProcessOrderPaymentRequestDTO;
 import com.fiap.techfood.application.dto.request.SearchOrdersRequestDTO;
-import com.fiap.techfood.application.dto.response.OrderPaymentStatusDTO;
 import com.fiap.techfood.application.dto.response.PaymentDTO;
 import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
 import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
@@ -15,7 +13,6 @@ import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.domain.customer.Customer;
 import com.fiap.techfood.domain.order.Order;
 import com.fiap.techfood.domain.order.OrderItem;
-import com.fiap.techfood.domain.order.OrderPaymentStatus;
 import com.fiap.techfood.domain.order.OrderStatus;
 import com.fiap.techfood.domain.products.Product;
 import org.apache.commons.lang3.ObjectUtils;
@@ -124,34 +121,9 @@ public class OrderUseCasesImpl implements OrderUseCases {
     @Override
     public List<Order> findNotCompletedOrders() {
         return repo.findAllNotCompleted().stream()
-                .filter(order -> order.getReceivedDateTime() != null)
+                .filter(order -> order.getCreatedDateTime() != null)
                 .sorted(Comparator.comparing((Order order) -> order.getStatus().getDisplayPriority())
-                        .thenComparing(Order::getReceivedDateTime))
+                        .thenComparing(Order::getCreatedDateTime))
                 .toList();
-    }
-
-    @Override
-    public OrderPaymentStatusDTO getOrderPaymentStatus(Long orderNumber) {
-        Order order = repo.findById(orderNumber).orElseThrow(() -> new BusinessException("Status não alterado, ID não encontrado!", HttpStatusCodes.NOT_FOUND));
-
-        if(order.getStatus() == OrderStatus.REJECTED) {
-            return OrderPaymentStatusDTO.builder().status(OrderPaymentStatus.REJECTED).build();
-        } else if (order.getStatus() != OrderStatus.CREATED) {
-            return OrderPaymentStatusDTO.builder().status(OrderPaymentStatus.APPROVED).build();
-        }
-
-        return OrderPaymentStatusDTO.builder().status(OrderPaymentStatus.PENDING).build();
-    }
-
-    @Override
-    public void processOrderPayment(ProcessOrderPaymentRequestDTO processOrderPaymentRequest) {
-        Order order = repo.findById(processOrderPaymentRequest.getOrderId())
-                .orElseThrow(() -> new BusinessException("Pedido não encontrado!", HttpStatusCodes.NOT_FOUND));
-
-        order.setStatus(processOrderPaymentRequest.getPaymentStatus().equals(OrderPaymentStatus.APPROVED) ?
-                OrderStatus.RECEIVED : OrderStatus.REJECTED);
-        order.setReceivedDateTime(OffsetDateTime.now());
-
-        repo.save(order);
     }
 }

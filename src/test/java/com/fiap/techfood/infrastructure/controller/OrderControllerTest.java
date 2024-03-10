@@ -76,13 +76,4 @@ class OrderControllerTest {
                         get("/orders/status?status=CREATED&startDatetime=2024-01-16T10:00:01+03:00&endDatetime=2024-01-16T10:00:01+03:00"))
                 .andExpect(status().isOk());
     }
-
-    @Test
-    void shouldCallOrderByStatusAndTimeSuccess() throws Exception {
-        mockMvc
-                .perform(
-                        get("/orders/1/payment/status"))
-                .andExpect(status().isOk());
-    }
-
 }

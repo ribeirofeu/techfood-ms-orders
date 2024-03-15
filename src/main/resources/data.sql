@@ -11,7 +11,10 @@ INSERT INTO PRODUCT VALUES (31, 'Chocolate', 'Chocolate', 5, 30);
 INSERT INTO PRODUCT VALUES (40, 'Lanche de Frango', 'X-Chicken', 12, 30);
 INSERT INTO PRODUCT VALUES (41, 'Lanche de Picanha', 'X-Picanha', 22, 30);
 
-INSERT INTO CUSTOMER VALUES (10, '34534567840', 'email@teste.com.br', 'Teste Customer');
+INSERT INTO CUSTOMER VALUES (10, 1,'34534567840', 'email@teste.com.br', 'Teste Customer');
+INSERT INTO CUSTOMER VALUES (11, 0,'34534567842', 'email@teste.com.br', 'Teste Customer');
+INSERT INTO CUSTOMER VALUES (12, 1,'34534567843', 'email@teste.com.br', 'Teste Customer');
+INSERT INTO CUSTOMER VALUES (13, 1,'34534567899', 'email@teste.com.br', 'Teste Customer');
 
 INSERT INTO "order" VALUES (10,CURRENT_TIMESTAMP(), 'Pedido Teste', CURRENT_TIMESTAMP(), 1, 34, 10);
 INSERT INTO "order" VALUES (20,CURRENT_TIMESTAMP(), 'Pedido Teste 2', CURRENT_TIMESTAMP(), 1, 40, 10);

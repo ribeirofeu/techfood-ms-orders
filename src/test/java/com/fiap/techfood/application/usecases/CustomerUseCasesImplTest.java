@@ -29,7 +29,7 @@ class CustomerUseCasesImplTest {
 
   @Test
   void shouldCreateCustomerSuccess(){
-      CustomerRequestDTO requestDTO = new CustomerRequestDTO("Cliente Teste", "34534534569", "email@teste.com.br");
+      CustomerRequestDTO requestDTO = new CustomerRequestDTO("Cliente Teste", "34534534569", "email@teste.com.br", true);
       assertDoesNotThrow(() -> customerUseCases.createCustomer(requestDTO));
       verify(customerRepository).save(any());
   }

@@ -11,4 +11,5 @@ public class CustomerRequestDTO {
     private String name;
     private String cpf;
     private String email;
+    private boolean ativo;
 }

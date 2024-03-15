@@ -32,4 +32,15 @@ public class CustomerBdRepository implements CustomerRepository {
     public Optional<Customer> findById(Long id) {
         return springCustomerRepository.findById(id).map(CustomerEntity::toCustomer);
     }
+
+    @Override
+    public void deleteByCPF(String cpf) {
+        springCustomerRepository.deleteByCpf(cpf);
+
+    }
+
+    @Override
+    public void disableByCPF(Customer customer) {
+    springCustomerRepository.save(new CustomerEntity(customer));
+    }
 }

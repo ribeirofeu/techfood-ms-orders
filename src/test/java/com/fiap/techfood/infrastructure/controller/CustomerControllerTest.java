@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class CustomerControllerTest {
@@ -41,7 +40,7 @@ class CustomerControllerTest {
   void shouldCallCreateCustomerSuccess() throws Exception {
 
     CustomerRequestDTO requestDTO =
-        new CustomerRequestDTO("Cliente Teste", "34534534569", "email@teste.com.br");
+        new CustomerRequestDTO("Cliente Teste", "34534534569", "email@teste.com.br", true);
     mockMvc
         .perform(
             post("/customers")
@@ -56,6 +55,22 @@ class CustomerControllerTest {
                 .perform(
                         get("/customers/34534567830"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldDeleteCustomerSuccess() throws Exception {
+        mockMvc
+                .perform(
+                        delete("/customers/34534567830"))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void shouldDisableCustomerSuccess() throws Exception {
+        mockMvc
+                .perform(
+                        delete("/customers/disable/34534567830"))
+                .andExpect(status().isNoContent());
     }
 
 }

@@ -22,6 +22,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @ActiveProfiles(value = "test")
@@ -46,7 +47,7 @@ class CustomerUseCasesIT {
 
   @Test
   void shouldCreateCustomerSuccess() {
-      CustomerRequestDTO requestDTO = new CustomerRequestDTO("Teste", "3435678754", "email@teste.com.br");
+      CustomerRequestDTO requestDTO = new CustomerRequestDTO("Teste", "3435678754", "email@teste.com.br", true);
       Long customerId = customerUseCases.createCustomer(requestDTO);
 
       assertEquals(1L, customerId);
@@ -54,12 +55,26 @@ class CustomerUseCasesIT {
 
     @Test
     void shouldFindCustomerByCPFSuccess() {
-        Customer customer = customerUseCases.findCustomerByCpf("34534567840");
-        assertEquals(10L, customer.getId());
+        Customer customer = customerUseCases.findCustomerByCpf("34534567843");
+        assertEquals(12L, customer.getId());
     }
 
+    @Test
+    void shouldDisableCustomerSuccess(){
 
+      customerUseCases.disableCustomer("34534567840");
+      Customer customer = customerUseCases.findCustomerByCpf("34534567840");
+      assertFalse(customer.isAtivo());
 
+    }
 
+    @Test
+    @Transactional
+    void shouldDeleteCustomerSuccess(){
+
+        customerUseCases.deleteCustomer("34534567899");
+        assertThrows(BusinessException.class, () -> customerUseCases.findCustomerByCpf("34534567899"));
+
+    }
 
 }

@@ -8,4 +8,8 @@ public interface CustomerUseCases {
     Long createCustomer(CustomerRequestDTO dto);
 
     Customer findCustomerByCpf(String cpf);
+
+    void disableCustomer(String cpf);
+
+    void deleteCustomer(String cpf);
 }

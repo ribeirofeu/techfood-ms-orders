@@ -20,5 +20,5 @@ public interface OrderUseCases {
 
     OrderPaymentStatusDTO getOrderPaymentStatus(Long orderNumber);
 
-    void processOrderPayment(ProcessOrderPaymentRequestDTO processOrderPaymentRequest);
+    // void processOrderPayment(ProcessOrderPaymentRequestDTO processOrderPaymentRequest);
 }

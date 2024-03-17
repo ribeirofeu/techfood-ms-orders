@@ -1,18 +1,17 @@
 package com.fiap.techfood.application.usecases;
 
 import com.fiap.techfood.application.dto.request.OrderRequestDTO;
-import com.fiap.techfood.application.dto.request.ProcessOrderPaymentRequestDTO;
 import com.fiap.techfood.application.dto.request.SearchOrdersRequestDTO;
 import com.fiap.techfood.application.dto.response.OrderPaymentStatusDTO;
-import com.fiap.techfood.application.dto.response.PaymentDTO;
 import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
+import com.fiap.techfood.application.interfaces.gateways.OrderMessageSender;
 import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.application.interfaces.gateways.ProductRepository;
-import com.fiap.techfood.application.interfaces.usecases.NotificationUseCases;
 import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import com.fiap.techfood.domain.commons.HttpStatusCodes;
 import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.domain.customer.Customer;
+import com.fiap.techfood.domain.order.CreatedOrder;
 import com.fiap.techfood.domain.order.Order;
 import com.fiap.techfood.domain.order.OrderItem;
 import com.fiap.techfood.domain.order.OrderPaymentStatus;
@@ -29,16 +28,16 @@ import java.util.List;
 public class OrderUseCasesImpl implements OrderUseCases {
     private final OrderRepository repo;
     private final ProductRepository productRepository;
-
-    private final NotificationUseCases notificationUseCases;
     private final CustomerRepository customerRepository;
 
+    private final OrderMessageSender orderMessageSender;
+
     public OrderUseCasesImpl(final OrderRepository orderRepository, final ProductRepository productRepository,
-                             final CustomerRepository customerRepository, final NotificationUseCases notificationUseCases) {
+                             final CustomerRepository customerRepository, final OrderMessageSender orderMessageSender) {
         this.repo = orderRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
-        this.notificationUseCases = notificationUseCases;
+        this.orderMessageSender = orderMessageSender;
     }
 
     @Override
@@ -59,14 +58,15 @@ public class OrderUseCasesImpl implements OrderUseCases {
         order.setItems(orderItems);
         order.setTotalValue(calculateOrderTotalValue(orderItems));
 
-        try {
-            order.setQrCode(notificationUseCases.send(new PaymentDTO(order.getNumber(), order.getTotalValue())));
-        } catch (Exception e) {
-            throw new BusinessException("Falha ao se comunicar com o serviço", HttpStatusCodes.INTERNAL_SERVER_ERROR);
-        }
+        Order savedOrder = repo.save(order);
 
+        orderMessageSender.publish(CreatedOrder.builder()
+                        .number(savedOrder.getNumber())
+                        .createdDateTime(savedOrder.getCreatedDateTime())
+                        .customerId(savedOrder.getCustomer().getId())
+                .build());
 
-        return repo.save(order);
+        return savedOrder;
     }
 
     private BigDecimal calculateOrderTotalValue(List<OrderItem> orderItems) {
@@ -141,17 +141,5 @@ public class OrderUseCasesImpl implements OrderUseCases {
         }
 
         return OrderPaymentStatusDTO.builder().status(OrderPaymentStatus.PENDING).build();
-    }
-
-    @Override
-    public void processOrderPayment(ProcessOrderPaymentRequestDTO processOrderPaymentRequest) {
-        Order order = repo.findById(processOrderPaymentRequest.getOrderId())
-                .orElseThrow(() -> new BusinessException("Pedido não encontrado!", HttpStatusCodes.NOT_FOUND));
-
-        order.setStatus(processOrderPaymentRequest.getPaymentStatus().equals(OrderPaymentStatus.APPROVED) ?
-                OrderStatus.RECEIVED : OrderStatus.REJECTED);
-        order.setReceivedDateTime(OffsetDateTime.now());
-
-        repo.save(order);
     }
 }

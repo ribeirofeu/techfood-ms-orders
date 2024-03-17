@@ -2,9 +2,9 @@ package com.fiap.techfood.application.usecases;
 
 import com.fiap.techfood.application.dto.request.OrderRequestDTO;
 import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
+import com.fiap.techfood.application.interfaces.gateways.OrderMessageSender;
 import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.application.interfaces.gateways.ProductRepository;
-import com.fiap.techfood.application.interfaces.usecases.NotificationUseCases;
 import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import com.fiap.techfood.domain.order.Order;
 import com.fiap.techfood.utils.ModelUtils;
@@ -31,14 +31,14 @@ class OrderUseCasesIT {
 
   @Autowired private CustomerRepository customerRepository;
 
-  @Mock private NotificationUseCases notificationUseCases;
+  @Mock private OrderMessageSender orderMessageSender;
 
   AutoCloseable openMocks;
 
   @BeforeEach
   void setup() {
     openMocks = MockitoAnnotations.openMocks(this);
-    orderUseCases = new OrderUseCasesImpl(orderRepository, productRepository, customerRepository, notificationUseCases);
+    orderUseCases = new OrderUseCasesImpl(orderRepository, productRepository, customerRepository, orderMessageSender);
   }
 
   @AfterEach

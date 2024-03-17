@@ -8,8 +8,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+@Transactional
 @RestController
 @RequestMapping("/customers")
 @Tag(name = "Clientes")
@@ -33,5 +35,21 @@ public class CustomerController {
     @Operation(summary = "Retorna os dados do cliente a partir de um CPF")
     ResponseEntity<Customer> findCustomerByCpf (@PathVariable String cpf) {
        return  ResponseEntity.ok(useCases.findCustomerByCpf(cpf));
+    }
+
+    @DeleteMapping("/{cpf}")
+    @Operation(summary = "Deleta cliente a partir de um CPF")
+    ResponseEntity<Customer> deleteById (@PathVariable String cpf) {
+
+        useCases.deleteCustomer(cpf);
+        return  ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/disable/{cpf}")
+    @Operation(summary = "Deleta cliente a partir de um CPF")
+    ResponseEntity<Customer> disableById (@PathVariable String cpf) {
+
+        useCases.disableCustomer(cpf);
+        return  ResponseEntity.noContent().build();
     }
 }

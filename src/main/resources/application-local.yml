@@ -12,3 +12,6 @@ spring:
 
 payment:
   url: "http://localhost:8081/payment/generate"
+
+production:
+  url: "http://localhost:8080/payment"

@@ -1,11 +1,14 @@
 package com.fiap.techfood.infrastructure.configuration;
 
+import com.fiap.techfood.application.interfaces.gateways.OrderMessageSender;
 import com.fiap.techfood.application.interfaces.usecases.*;
 import com.fiap.techfood.application.usecases.*;
+import com.fiap.techfood.infrastructure.messaging.OrderMessageSnsSender;
 import com.fiap.techfood.infrastructure.repository.CategoryBdRepository;
 import com.fiap.techfood.infrastructure.repository.CustomerBdRepository;
 import com.fiap.techfood.infrastructure.repository.OrderBdRepository;
 import com.fiap.techfood.infrastructure.repository.ProductBdRepository;
+import io.awspring.cloud.sns.core.SnsTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
@@ -31,8 +34,9 @@ public class BeanConfiguration {
     OrderUseCases orderUseCases(OrderBdRepository orderBdRepository,
                                 ProductBdRepository productRepository,
                                 CustomerBdRepository customerBdRepository,
-                                NotificationUseCases notificationUseCases) {
-        return new OrderUseCasesImpl(orderBdRepository, productRepository, customerBdRepository, notificationUseCases);
+                                OrderMessageSender orderMessageSender) {
+        return new OrderUseCasesImpl(orderBdRepository, productRepository,
+                customerBdRepository, orderMessageSender);
     }
 
     @Bean
@@ -43,6 +47,11 @@ public class BeanConfiguration {
     @Bean
     NotificationUseCases notificationUseCases(RestTemplate restTemplate) {
         return new NotificationUseCasesImpl(restTemplate);
+    }
+
+    @Bean
+    OrderMessageSender orderMessageSender(SnsTemplate snsTemplate) {
+        return new OrderMessageSnsSender(snsTemplate);
     }
 
     @Bean

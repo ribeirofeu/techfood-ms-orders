@@ -10,7 +10,7 @@ import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import com.fiap.techfood.domain.commons.HttpStatusCodes;
 import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.domain.customer.Customer;
-import com.fiap.techfood.domain.order.CreatedOrder;
+import com.fiap.techfood.domain.order.CreatedOrderEvent;
 import com.fiap.techfood.domain.order.Order;
 import com.fiap.techfood.domain.order.OrderItem;
 import com.fiap.techfood.domain.order.OrderStatus;
@@ -60,7 +60,7 @@ public class OrderUseCasesImpl implements OrderUseCases {
 
         Order savedOrder = repo.save(order);
 
-        orderMessageSender.publish(CreatedOrder.builder()
+        orderMessageSender.publish(CreatedOrderEvent.builder()
                         .number(savedOrder.getNumber())
                         .createdDateTime(savedOrder.getCreatedDateTime())
                         .customerId(savedOrder.getCustomer().getId())

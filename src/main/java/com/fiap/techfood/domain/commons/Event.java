@@ -1,5 +1,5 @@
 package com.fiap.techfood.domain.commons;
 
-public interface Message {
+public interface Event {
     MessageType getMessageType();
 }

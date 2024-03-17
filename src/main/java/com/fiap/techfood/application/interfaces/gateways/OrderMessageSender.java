@@ -1,7 +1,7 @@
 package com.fiap.techfood.application.interfaces.gateways;
 
-import com.fiap.techfood.domain.commons.Message;
+import com.fiap.techfood.domain.commons.Event;
 
 public interface OrderMessageSender {
-    <T extends Message> void publish(T message);
+    <T extends Event> void publish(T event);
 }

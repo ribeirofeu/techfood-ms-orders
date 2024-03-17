@@ -34,19 +34,6 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 
-    @PatchMapping("/{orderNumber}")
-    @Operation(summary = "Atualiza o status de um pedido")
-    ResponseEntity<Order> updateOrder(@PathVariable Long orderNumber, @RequestBody OrderStatusRequestDTO orderStatusRequestDTO) {
-        Order order = useCases.updateOrderStatus(orderNumber, orderStatusRequestDTO.status());
-        return ResponseEntity.status(HttpStatus.OK).body(order);
-    }
-
-    @GetMapping("/")
-    @Operation(summary = "Lista pedidos não finalizados ordenados por status")
-    ResponseEntity<List<Order>> findNotCompletedOrders() {
-        return ResponseEntity.ok(useCases.findNotCompletedOrders());
-    }
-
     @GetMapping("/status")
     @Operation(summary = "Lista todos os pedidos a partir de um status e um intervalo de tempo")
     ResponseEntity<List<Order>> findOrdersByStatusAndTimeInterval(@Valid SearchOrdersRequestDTO searchOrdersRequestDTO) {

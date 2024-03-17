@@ -1,7 +1,7 @@
 package com.fiap.techfood.domain.order;
 
 import com.fiap.techfood.domain.commons.Event;
-import com.fiap.techfood.domain.commons.MessageType;
+import com.fiap.techfood.domain.commons.EventType;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -17,7 +17,7 @@ public class CreatedOrderEvent implements Event {
     private OffsetDateTime createdDateTime;
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.CREATED_ORDER;
+    public EventType getEventType() {
+        return EventType.CREATED_ORDER;
     }
 }

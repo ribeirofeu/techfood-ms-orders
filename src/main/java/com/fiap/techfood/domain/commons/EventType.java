@@ -1,5 +1,5 @@
 package com.fiap.techfood.domain.commons;
 
-public enum MessageType {
+public enum EventType {
     CREATED_ORDER;
 }

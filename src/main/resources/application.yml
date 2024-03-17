@@ -5,7 +5,7 @@ spring:
     password: ${database.password}
     driver-class-name: ${database.driver-class-name}
   profiles:
-    active: ${APP_PROFILE:test}
+    active: ${APP_PROFILE:prod}
 
 server:
   error:
@@ -25,5 +25,5 @@ management:
       db:
         enabled:true
 
-production:
+payment:
   url: ${production.url}

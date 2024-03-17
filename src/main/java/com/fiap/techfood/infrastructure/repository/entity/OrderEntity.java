@@ -45,7 +45,7 @@ public class OrderEntity {
     @Column(name = "`notes`")
     private String notes;
 
-    @Transient
+    @Column(name = "`qrCode`")
     private String qrCode;
 
     @OneToMany(

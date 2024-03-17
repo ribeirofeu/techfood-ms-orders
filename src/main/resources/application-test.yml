@@ -17,5 +17,5 @@ spring:
     console:
       enabled: true
 
-production:
-  url: "http://localhost:8081/payment"
+payment:
+  url: "http://localhost:8081/payment/generate"

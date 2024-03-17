@@ -16,6 +16,7 @@ import com.fiap.techfood.domain.order.OrderItem;
 import com.fiap.techfood.domain.order.OrderStatus;
 import com.fiap.techfood.domain.products.Product;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -38,6 +39,7 @@ public class OrderUseCasesImpl implements OrderUseCases {
         this.notificationUseCases = notificationUseCases;
     }
 
+    @Transactional
     @Override
     public Order createOrder(OrderRequestDTO requestDTO) {
         Order order = Order.fromOrderRequestDTO(requestDTO);
@@ -56,14 +58,15 @@ public class OrderUseCasesImpl implements OrderUseCases {
         order.setItems(orderItems);
         order.setTotalValue(calculateOrderTotalValue(orderItems));
 
+        var orderSaved = repo.save(order);
+
         try {
-            order.setQrCode(notificationUseCases.send(new PaymentDTO(order.getNumber(), order.getTotalValue())));
+            orderSaved.setQrCode(notificationUseCases.send(new PaymentDTO(orderSaved.getNumber(), orderSaved.getTotalValue())));
         } catch (Exception e) {
             throw new BusinessException("Falha ao se comunicar com o serviço", HttpStatusCodes.INTERNAL_SERVER_ERROR);
         }
 
-
-        return repo.save(order);
+        return repo.save(orderSaved);
     }
 
     private BigDecimal calculateOrderTotalValue(List<OrderItem> orderItems) {

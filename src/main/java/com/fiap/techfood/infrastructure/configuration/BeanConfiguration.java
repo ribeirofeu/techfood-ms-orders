@@ -3,7 +3,7 @@ package com.fiap.techfood.infrastructure.configuration;
 import com.fiap.techfood.application.interfaces.gateways.OrderMessageSender;
 import com.fiap.techfood.application.interfaces.usecases.*;
 import com.fiap.techfood.application.usecases.*;
-import com.fiap.techfood.infrastructure.messaging.OrderMessageSnsSender;
+import com.fiap.techfood.infrastructure.messaging.senders.OrderMessageSnsSender;
 import com.fiap.techfood.infrastructure.repository.CategoryBdRepository;
 import com.fiap.techfood.infrastructure.repository.CustomerBdRepository;
 import com.fiap.techfood.infrastructure.repository.OrderBdRepository;

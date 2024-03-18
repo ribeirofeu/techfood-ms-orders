@@ -13,6 +13,4 @@ public interface OrderUseCases {
     Order updateOrderStatus(Long orderNumber, OrderStatus status);
 
     List<Order> findOrdersByStatusAndTimeInterval(SearchOrdersRequestDTO searchOrdersRequestDTO);
-
-    List<Order> findNotCompletedOrders();
 }

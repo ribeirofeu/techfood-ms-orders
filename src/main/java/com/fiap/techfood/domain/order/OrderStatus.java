@@ -1,17 +1,25 @@
 package com.fiap.techfood.domain.order;
 
+import com.fiap.techfood.domain.payment.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Map;
 
 @Getter
 @AllArgsConstructor
 public enum OrderStatus {
-    CREATED(0),
-    RECEIVED(3),
-    IN_PREPARATION(2),
-    READY(1),
-    COMPLETED(0),
-    REJECTED(0);
+    CREATED,
+    RECEIVED,
+    COMPLETED,
+    REJECTED;
 
-    private final int displayPriority;
+    public static OrderStatus getByPaymentStatus(PaymentStatus paymentStatus) {
+        Map<PaymentStatus, OrderStatus> mapPaymentStatusToOrderStatus = Map.of(
+                PaymentStatus.APPROVED, OrderStatus.RECEIVED,
+                PaymentStatus.REJECTED, OrderStatus.REJECTED
+        );
+
+        return  mapPaymentStatusToOrderStatus.get(paymentStatus);
+    }
 }

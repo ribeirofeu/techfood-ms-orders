@@ -25,6 +25,7 @@ public class OrderBdRepository implements OrderRepository {
     }
 
     @Override
+    @Transactional
     public Optional<Order> findById(Long id) {
         Optional<OrderEntity> entity = repo.findById(id);
         return entity.map(OrderEntity::toOrder);
@@ -46,12 +47,6 @@ public class OrderBdRepository implements OrderRepository {
     @Transactional
     public void updateOrderStatus(Order order) {
         repo.updateOrderStatus(order.getNumber(), order.getStatus());
-    }
-
-    @Override
-    public List<Order> findAllNotCompleted() {
-        return repo.findAllByStatusNotIn(List.of(OrderStatus.COMPLETED, OrderStatus.READY))
-                .stream().map(OrderEntity::toOrder).toList();
     }
 
     @Override

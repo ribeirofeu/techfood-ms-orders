@@ -128,16 +128,4 @@ class OrderUseCasesImplTest {
 
         assertThrows(BusinessException.class, () -> orderUseCases.findOrdersByStatusAndTimeInterval(parameters));
     }
-
-    @Test
-    void shouldFindOrderNotCompletedSuccess(){
-
-        List<Order> orders = List.of(ModelUtils.createOrderInstance(1L, OrderStatus.CREATED));
-        when(orderRepository.findAllNotCompleted()).thenReturn(orders);
-
-        List<Order> result = orderUseCases.findNotCompletedOrders();
-
-        assertNotNull(result);
-
-    }
 }

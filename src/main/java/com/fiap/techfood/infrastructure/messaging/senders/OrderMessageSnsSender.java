@@ -1,4 +1,4 @@
-package com.fiap.techfood.infrastructure.messaging;
+package com.fiap.techfood.infrastructure.messaging.senders;
 
 import com.fiap.techfood.application.interfaces.gateways.OrderMessageSender;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class OrderMessageSnsSender implements OrderMessageSender {
-    @Value("${messaging.output}")
+    @Value("${events.output}")
     private String topic;
 
     private final SnsTemplate snsTemplate;

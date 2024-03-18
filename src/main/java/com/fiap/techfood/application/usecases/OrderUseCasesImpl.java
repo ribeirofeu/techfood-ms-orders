@@ -16,12 +16,10 @@ import com.fiap.techfood.domain.order.OrderItem;
 import com.fiap.techfood.domain.order.OrderStatus;
 import com.fiap.techfood.domain.products.Product;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class OrderUseCasesImpl implements OrderUseCases {
@@ -39,7 +37,6 @@ public class OrderUseCasesImpl implements OrderUseCases {
         this.orderMessageSender = orderMessageSender;
     }
 
-    @Transactional
     @Override
     public Order createOrder(OrderRequestDTO requestDTO) {
         Order order = Order.fromOrderRequestDTO(requestDTO);
@@ -62,6 +59,7 @@ public class OrderUseCasesImpl implements OrderUseCases {
 
         orderMessageSender.publish(CreatedOrderEvent.builder()
                         .number(savedOrder.getNumber())
+                        .totalValue(savedOrder.getTotalValue())
                         .createdDateTime(savedOrder.getCreatedDateTime())
                         .customerId(savedOrder.getCustomer().getId())
                 .build());
@@ -119,14 +117,5 @@ public class OrderUseCasesImpl implements OrderUseCases {
         }
 
         return repo.findOrdersByStatusAndTimeInterval(searchOrdersRequestDTO.getStatus(), validStartDateTime, validEndDateTime);
-    }
-
-    @Override
-    public List<Order> findNotCompletedOrders() {
-        return repo.findAllNotCompleted().stream()
-                .filter(order -> order.getCreatedDateTime() != null)
-                .sorted(Comparator.comparing((Order order) -> order.getStatus().getDisplayPriority())
-                        .thenComparing(Order::getCreatedDateTime))
-                .toList();
     }
 }

@@ -45,11 +45,6 @@ public class BeanConfiguration {
     }
 
     @Bean
-    NotificationUseCases notificationUseCases(RestTemplate restTemplate) {
-        return new NotificationUseCasesImpl(restTemplate);
-    }
-
-    @Bean
     OrderMessageSender orderMessageSender(SnsTemplate snsTemplate) {
         return new OrderMessageSnsSender(snsTemplate);
     }

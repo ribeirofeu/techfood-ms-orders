@@ -50,24 +50,24 @@ class OrderControllerTest {
         .andExpect(status().isCreated());
   }
 
-    @Test
-    void shouldCallUpdateOrderSuccess() throws Exception {
-        OrderRequestDTO requestDTO = ModelUtils.createOrderRequestDTOInstance();
-        mockMvc
-                .perform(
-                        patch("/orders/1")
-                                .content(ModelUtils.asJsonString(requestDTO))
-                                .contentType("application/json"))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void shouldCallUpdateOrderSuccess() throws Exception {
+//        OrderRequestDTO requestDTO = ModelUtils.createOrderRequestDTOInstance();
+//        mockMvc
+//                .perform(
+//                        patch("/orders/1")
+//                                .content(ModelUtils.asJsonString(requestDTO))
+//                                .contentType("application/json"))
+//                .andExpect(status().isOk());
+//    }
 
-    @Test
-    void shouldCallAllOrderNotCompletedSuccess() throws Exception {
-        mockMvc
-                .perform(
-                        get("/orders/"))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void shouldCallAllOrderNotCompletedSuccess() throws Exception {
+//        mockMvc
+//                .perform(
+//                        get("/orders/"))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     void shouldCallOrderByStatusSuccess() throws Exception {

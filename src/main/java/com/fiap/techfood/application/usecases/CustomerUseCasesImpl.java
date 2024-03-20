@@ -1,11 +1,13 @@
 package com.fiap.techfood.application.usecases;
 
+import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import com.fiap.techfood.domain.commons.HttpStatusCodes;
 import com.fiap.techfood.domain.customer.Customer;
 import com.fiap.techfood.application.dto.request.CustomerRequestDTO;
 import com.fiap.techfood.domain.commons.exception.BusinessException;
 import com.fiap.techfood.application.interfaces.gateways.CustomerRepository;
 import com.fiap.techfood.application.interfaces.usecases.CustomerUseCases;
+import com.fiap.techfood.domain.payment.PaymentStatus;
 import com.fiap.techfood.infrastructure.repository.entity.CustomerEntity;
 import lombok.extern.log4j.Log4j2;
 

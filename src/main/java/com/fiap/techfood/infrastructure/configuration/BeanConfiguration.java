@@ -1,6 +1,7 @@
 package com.fiap.techfood.infrastructure.configuration;
 
 import com.fiap.techfood.application.interfaces.gateways.OrderMessageSender;
+import com.fiap.techfood.application.interfaces.gateways.OrderRepository;
 import com.fiap.techfood.application.interfaces.usecases.*;
 import com.fiap.techfood.application.usecases.*;
 import com.fiap.techfood.infrastructure.messaging.senders.OrderMessageSnsSender;
@@ -37,6 +38,11 @@ public class BeanConfiguration {
                                 OrderMessageSender orderMessageSender) {
         return new OrderUseCasesImpl(orderBdRepository, productRepository,
                 customerBdRepository, orderMessageSender);
+    }
+
+    @Bean
+    NotifyPaymentUserCases notifyPaymentUserCases(OrderRepository orderRepository) {
+        return new NotifyPaymentUseCasesImpl(orderRepository);
     }
 
     @Bean

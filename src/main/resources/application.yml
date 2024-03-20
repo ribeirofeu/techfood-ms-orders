@@ -41,3 +41,5 @@ events:
   output: "arn:aws:sns:us-east-1:027260563052:created_orders_topic"
   queues:
     payment-received: "received_payment_ms_order_queue"
+    notify-payment: "notify_payment_ms_order_queue"
+    completed-production: "produced_orders_ms_orders_queue"

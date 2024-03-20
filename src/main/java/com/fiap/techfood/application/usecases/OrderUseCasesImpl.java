@@ -22,6 +22,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class OrderUseCasesImpl implements OrderUseCases {
     private final OrderRepository repo;
     private final ProductRepository productRepository;
@@ -117,5 +118,10 @@ public class OrderUseCasesImpl implements OrderUseCases {
         }
 
         return repo.findOrdersByStatusAndTimeInterval(searchOrdersRequestDTO.getStatus(), validStartDateTime, validEndDateTime);
+    }
+
+    @Override
+    public Order findById(Long orderId) {
+        return repo.findById(orderId).orElseThrow(() -> new BusinessException("Pedido não encontrado", HttpStatusCodes.NOT_FOUND));
     }
 }

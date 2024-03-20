@@ -13,4 +13,6 @@ public interface OrderUseCases {
     Order updateOrderStatus(Long orderNumber, OrderStatus status);
 
     List<Order> findOrdersByStatusAndTimeInterval(SearchOrdersRequestDTO searchOrdersRequestDTO);
+
+    Order findById(Long orderId);
 }

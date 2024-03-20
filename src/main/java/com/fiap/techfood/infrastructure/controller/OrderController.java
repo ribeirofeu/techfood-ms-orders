@@ -39,4 +39,10 @@ public class OrderController {
     ResponseEntity<List<Order>> findOrdersByStatusAndTimeInterval(@Valid SearchOrdersRequestDTO searchOrdersRequestDTO) {
         return ResponseEntity.ok(useCases.findOrdersByStatusAndTimeInterval(searchOrdersRequestDTO));
     }
+
+    @GetMapping("/{orderId}")
+    @Operation(summary = "Retorna um pedido pelo orderId")
+    ResponseEntity<Order> findById(@PathVariable Long orderId) {
+        return ResponseEntity.ok(useCases.findById(orderId));
+    }
 }

@@ -10,10 +10,10 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class OrderEntityTest {
+ class OrderEntityTest {
 
     @Test
-    public void testOrderEntityBuilder() {
+     void testOrderEntityBuilder() {
         // Arrange
         Long orderId = 1L;
         CustomerEntity customer = new CustomerEntity();

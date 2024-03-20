@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CustomerEntityTest {
+class CustomerEntityTest {
 
     @Test
-    public void testCustomerEntityBuilder() {
+    void testCustomerEntityBuilder() {
         // Arrange
         Long id = 1L;
         String name = "Test";
@@ -36,7 +36,7 @@ public class CustomerEntityTest {
     }
 
     @Test
-    public void testToCustomer() {
+    void testToCustomer() {
         // Arrange
         Long id = 1L;
         String name = "Test";

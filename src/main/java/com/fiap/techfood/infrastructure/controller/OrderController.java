@@ -1,7 +1,6 @@
 package com.fiap.techfood.infrastructure.controller;
 
 import com.fiap.techfood.application.dto.request.OrderRequestDTO;
-import com.fiap.techfood.application.dto.request.OrderStatusRequestDTO;
 import com.fiap.techfood.application.dto.request.SearchOrdersRequestDTO;
 import com.fiap.techfood.application.interfaces.usecases.OrderUseCases;
 import com.fiap.techfood.domain.order.Order;
@@ -29,7 +28,7 @@ public class OrderController {
     @PostMapping
     @Transactional
     @Operation(summary = "Cria um pedido")
-    ResponseEntity<Order> createOrder(@RequestBody OrderRequestDTO request) {
+    public ResponseEntity<Order> createOrder(@RequestBody OrderRequestDTO request) {
         Order order = useCases.createOrder(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }

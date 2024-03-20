@@ -4,13 +4,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fiap.techfood.application.dto.request.OrderRequestDTO;
 import com.fiap.techfood.domain.customer.Customer;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {

@@ -75,16 +75,4 @@ class OrderBdRepositoryTest {
     assertDoesNotThrow(() -> orderBdRepository.updateOrderStatus(order));
   }
 
-  @Test
-  void shouldFindAllOrderNotCompletedSuccess() {
-    assertDoesNotThrow(() -> orderBdRepository.findAllNotCompleted());
-  }
-
-  @Test
-  void shouldFindOrderByStatusAndTimeSuccess() {
-    assertDoesNotThrow(
-        () ->
-            orderBdRepository.findOrdersByStatusAndTimeInterval(
-                OrderStatus.IN_PREPARATION, OffsetDateTime.now(), OffsetDateTime.now()));
-  }
 }

@@ -111,7 +111,7 @@ public class ModelUtils {
   public static SearchOrdersRequestDTO createSearchOrdersRequestDTOInstance(){
 
       SearchOrdersRequestDTO searchOrdersRequestDTO = new SearchOrdersRequestDTO();
-      searchOrdersRequestDTO.setStatus(OrderStatus.IN_PREPARATION);
+      searchOrdersRequestDTO.setStatus(OrderStatus.RECEIVED);
       searchOrdersRequestDTO.setStartDatetime(OffsetDateTime.now());
       searchOrdersRequestDTO.setEndDatetime(OffsetDateTime.now());
 
@@ -122,7 +122,7 @@ public class ModelUtils {
     public static SearchOrdersRequestDTO createSearchOrdersRequestDTOInvalidRangeInstance(){
 
         SearchOrdersRequestDTO searchOrdersRequestDTO = new SearchOrdersRequestDTO();
-        searchOrdersRequestDTO.setStatus(OrderStatus.IN_PREPARATION);
+        searchOrdersRequestDTO.setStatus(OrderStatus.RECEIVED);
         searchOrdersRequestDTO.setStartDatetime(OffsetDateTime.now());
         searchOrdersRequestDTO.setEndDatetime(OffsetDateTime.parse("2023-12-12T10:00:00+03:00"));
 

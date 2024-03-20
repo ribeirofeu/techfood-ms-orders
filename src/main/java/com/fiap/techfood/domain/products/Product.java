@@ -2,12 +2,14 @@ package com.fiap.techfood.domain.products;
 
 import com.fiap.techfood.application.dto.request.ProductRequestDTO;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Data
 @Builder
+@Getter
+@Setter
 public class Product {
 
     private Long id;

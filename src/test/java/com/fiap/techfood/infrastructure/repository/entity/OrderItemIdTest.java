@@ -7,16 +7,16 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OrderItemIdTest {
+ class OrderItemIdTest {
     private OrderItemId orderItemId;
 
     @BeforeEach
-    public void setUp() {
+     void setUp() {
         orderItemId = new OrderItemId(1L, 2L);
     }
 
     @Test
-    public void testEquals() {
+     void testEquals() {
         OrderItemId sameOrderItemId = new OrderItemId(1L, 2L);
         assertEquals(orderItemId, sameOrderItemId);
 
@@ -25,7 +25,7 @@ public class OrderItemIdTest {
     }
 
     @Test
-    public void testHashCode() {
+     void testHashCode() {
         OrderItemId sameOrderItemId = new OrderItemId(1L, 2L);
         assertEquals(orderItemId.hashCode(), sameOrderItemId.hashCode());
 
@@ -34,7 +34,7 @@ public class OrderItemIdTest {
     }
 
     @Test
-    public void testOrderItemEntityBuilder() {
+     void testOrderItemEntityBuilder() {
         // Arrange
         OrderEntity order = new OrderEntity();
         ProductEntity product = new ProductEntity();
@@ -54,7 +54,7 @@ public class OrderItemIdTest {
     }
 
     @Test
-    public void testOrderItemIdBuilder() {
+     void testOrderItemIdBuilder() {
         // Arrange
         Long orderId = 1L;
         Long productId = 2L;
@@ -67,7 +67,7 @@ public class OrderItemIdTest {
     }
 
     @Test
-    public void testToString() {
+     void testToString() {
         // Arrange
         Long orderId = 1L;
         Long productId = 2L;

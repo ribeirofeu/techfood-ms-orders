@@ -8,10 +8,10 @@ import java.time.OffsetDateTime;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CompletedProductionEventTest {
+class CompletedProductionEventTest {
 
     @Test
-    public void testCompletedProductionEventBuilder() {
+    void testCompletedProductionEventBuilder() {
         // Arrange
         Long orderId = 1L;
         OffsetDateTime datetime = OffsetDateTime.now();
@@ -32,7 +32,7 @@ public class CompletedProductionEventTest {
     }
 
     @Test
-    public void testSetterMethods() {
+    void testSetterMethods() {
         // Arrange
         Long orderId = 1L;
         OffsetDateTime datetime = OffsetDateTime.now();

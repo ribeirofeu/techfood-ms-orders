@@ -9,11 +9,11 @@ import java.time.OffsetDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ReceivedPaymentStatusEventTest {
+ class ReceivedPaymentStatusEventTest {
 
 
     @Test
-    public void testGetterAndSetter() {
+     void testGetterAndSetter() {
        // Arrange and Act
         ReceivedPaymentStatusEvent event = ReceivedPaymentStatusEvent.builder()
                 .orderId(123L)

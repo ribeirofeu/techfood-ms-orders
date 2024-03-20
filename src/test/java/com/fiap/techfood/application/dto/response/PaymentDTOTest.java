@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class PaymentDTOTest {
+class PaymentDTOTest {
 
     @Test
-    public void testConstructorAndGetter() {
+    void testConstructorAndGetter() {
         // Arrange
         Long id = 123L;
         BigDecimal totalValue = BigDecimal.valueOf(100.50);

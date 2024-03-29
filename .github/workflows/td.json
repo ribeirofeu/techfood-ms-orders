@@ -1,11 +1,10 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:027260563052:task-definition/td-techfood-ms-orders",
   "containerDefinitions": [
     {
       "name": "ms-orders",
       "image": "027260563052.dkr.ecr.us-east-1.amazonaws.com/ms-orders",
       "cpu": 1024,
-      "memoryReservation": 666,
+      "memoryReservation": 512,
       "portMappings": [
         {
           "name": "http_ms_order",
@@ -80,9 +79,6 @@
     }
   ],
   "placementConstraints": [],
-  "compatibilities": [
-    "EC2"
-  ],
   "requiresCompatibilities": [
     "EC2"
   ],
@@ -90,7 +86,5 @@
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"
   },
-  "registeredAt": "2024-03-20T15:06:39.685Z",
-  "registeredBy": "arn:aws:iam::027260563052:root",
   "tags": []
 }

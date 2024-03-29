@@ -6,8 +6,8 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECS_SERVICE: service-ms-orders
-  ECS_CLUSTER: cluster-techfood
+  ECS_SERVICE: service-orders
+  ECS_CLUSTER: techfood
   ECS_TASK_DEFINITION: .github/workflows/td.json
   CONTAINER_NAME: ms-orders
 

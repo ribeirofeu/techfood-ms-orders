@@ -132,4 +132,9 @@ No documento corrente estão descritos os seguintes assuntos:
 
 Link do documento https://drive.google.com/file/d/1-le6QO5-88kyiuXsPV5qOxdMIHSVSjcd/view?usp=drive_link
 
+## Motivação para a Abordagem Coreografada do SAGA
+
+Optamos pela abordagem coreografada para mitigar os riscos associados a um único ponto central de falha. Ao evitar a centralização do fluxo de dados e a lógica de controle, reduzimos a vulnerabilidade do sistema a falhas desse tipo.
+Além disso, dada a natureza gerenciável e não excessivamente complexa do fluxo em questão, a coreografia se apresenta como uma solução viável, sem os problemas típicos associados a essa abordagem.  
+
 [⬆ Voltar ao topo](#projeto-tech-challenge)<br>
